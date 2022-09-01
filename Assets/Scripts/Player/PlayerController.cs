@@ -24,5 +24,15 @@ namespace Player {
 		}
 
 		#endregion
+		
+		#region Collision
+
+		private void OnTriggerEnter2D(Collider2D col) {
+			if (col.gameObject.CompareTag("Ground")) {
+				//TODO implement level lost logic.
+			}
+		}
+
+		#endregion
 	}	
 }

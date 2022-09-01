@@ -15,6 +15,7 @@ using Level;
 namespace Managers {
 public class LevelManager : UnitySingleton<LevelManager>{
     public event Action OnLevelLoaded;
+    public event Action<bool> OnLevelEnded;
     
     private LevelData[] _levelDatas;
     public LevelData CurrentLevelData{ get; private set; }
@@ -56,15 +57,28 @@ public class LevelManager : UnitySingleton<LevelManager>{
         this.OnLevelLoaded?.Invoke();
     }
 
+    public void TriggerLevelEnd(bool won) {
+	    if (won) {
+		    this.IncrementLevelIndex();
+	    }
+	    this.CurrentLevelInstance.ChangeSurfaceEffectorState(false);
+	    this.OnLevelEnded?.Invoke(won);
+    }
+    
+    #endregion
+    
+    #region Private
+    
     /// <summary>
     /// Increase the level index.
     /// </summary>
-    public void IncrementLevelIndex() {
+    private void IncrementLevelIndex() {
 	    this._currentLevelIndex++;
         
 	    UserSettingsManager.Instance.CurrentLevelIndex = this._currentLevelIndex;	    
     }
     
     #endregion
+    
 	}	
 }

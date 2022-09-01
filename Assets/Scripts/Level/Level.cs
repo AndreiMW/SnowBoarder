@@ -7,8 +7,17 @@
 
 using UnityEngine;
 
-using Gameplay;
-
 namespace Level {
-	public class Level : MonoBehaviour{}
+	public class Level : MonoBehaviour {
+		[SerializeField]
+		private SurfaceEffector2D _surfaceEffector2D;
+		
+		#region Public
+
+		public void ChangeSurfaceEffectorState(bool enabled) {
+			this._surfaceEffector2D.enabled = enabled;
+		}
+		
+		#endregion
+	}
 }

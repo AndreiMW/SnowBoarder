@@ -5,6 +5,7 @@
  * Copyright (c) 2022 Andrei-Florin Ciobanu. All rights reserved. 
  */
 
+using Managers;
 using UnityEngine;
 
 namespace Player {
@@ -29,7 +30,11 @@ namespace Player {
 
 		private void OnTriggerEnter2D(Collider2D col) {
 			if (col.gameObject.CompareTag("Ground")) {
-				//TODO implement level lost logic.
+				LevelManager.Instance.TriggerLevelEnd(false);
+			}
+
+			if (col.gameObject.CompareTag("Finish")) {
+				LevelManager.Instance.TriggerLevelEnd(true);
 			}
 		}
 

@@ -11,6 +11,10 @@ using Managers;
 
 namespace Player {
 	public class PlayerController : MonoBehaviour {
+		[SerializeField]
+		private int _torqueValue = 3;
+
+		
 		private Rigidbody2D _rigidbody2D;
 		
 		private Vector3 _originalPosition;
@@ -27,7 +31,14 @@ namespace Player {
 
 		private void FixedUpdate() {
 			if (Input.GetMouseButton(0)) {
-				this._rigidbody2D.AddTorque(3f);
+				float xPos = Input.mousePosition.x;
+
+				if (xPos <= Screen.width / 2) {
+					this._torqueValue = Mathf.Abs(this._torqueValue);
+				} else {
+					this._torqueValue = -Mathf.Abs(this._torqueValue);
+				}
+				this._rigidbody2D.AddTorque(this._torqueValue);
 			}
 		}
 
